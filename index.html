@@ -54,7 +54,7 @@
     }
 
     #awaiting {
-        margin-top: 25px; /* increased space from game board */
+        margin-top: 25px; /* space from game board */
         font-size: 18px;
         font-weight: 500;
         color: #fff9c4;
@@ -97,6 +97,33 @@
         transform: scale(1.05);
     }
 
+    #surprise-message {
+        display: none;
+        margin-top: 25px;
+        font-size: 20px;
+        color: #fff9c4;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    #reveal-btn {
+        display: none;
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background: #d10000;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 10px #ff0000;
+    }
+
+    #reveal-btn:hover {
+        background: #ff3333;
+    }
+
     #flyer {
         display: none;
         width: 100%;
@@ -126,6 +153,8 @@
         h1 { font-size: 18px; }
         #status { font-size: 16px; }
         #awaiting { font-size: 16px; }
+        #surprise-message { font-size: 18px; }
+        #reveal-btn { font-size: 16px; padding: 8px 16px; }
         .cell { font-size: 40px; }
     }
 
@@ -143,6 +172,10 @@
         <div id="awaiting">🎁 Awaiting your surprise…</div>
     </div>
 
+    <!-- Message and button after game -->
+    <div id="surprise-message">🎉 Your surprise awaits here! 🎁</div>
+    <button id="reveal-btn">Tap to reveal</button>
+
     <img id="flyer" src="lcd.jpeg" alt="Flyer">
     <div id="invite-msg">🎉 You are invited! 🎄</div>
 
@@ -156,6 +189,8 @@
     const inviteMsg = document.getElementById("invite-msg");
     const title = document.getElementById("title");
     const awaiting = document.getElementById("awaiting");
+    const surpriseMsg = document.getElementById("surprise-message");
+    const revealBtn = document.getElementById("reveal-btn");
 
     let board = ["", "", "", "", "", "", "", "", ""];
     let gameActive = true;
@@ -218,6 +253,15 @@
         title.style.display = "none";
         awaiting.style.display = "none";
 
+        // Show message and button
+        surpriseMsg.style.display = "block";
+        revealBtn.style.display = "inline-block";
+    }
+
+    // Reveal flyer when button clicked
+    revealBtn.onclick = function() {
+        surpriseMsg.style.display = "none";
+        revealBtn.style.display = "none";
         flyer.style.display = "block";
         inviteMsg.style.display = "block";
     }
